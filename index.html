@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bliss Ebot | Telegram Bot</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .logo {
+            font-size: 64px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .features {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #444;
+        }
+        
+        .feature:last-child {
+            margin-bottom: 0;
+        }
+        
+        .feature-num {
+            background: #25D366;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .telegram-btn {
+            display: block;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 22px 30px;
+            border-radius: 16px;
+            font-size: 20px;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin: 30px 0;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+        }
+        
+        .telegram-btn:hover {
+            background: #1da851;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4);
+        }
+        
+        .instruction {
+            color: #666;
+            font-size: 14px;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .telegram-btn {
+                padding: 20px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🤖</div>
+        
+        <h1>Bliss Ebot</h1>
+        <p class="subtitle">Вся информация в Telegram-боте</p>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-num">1</div>
+                <span>Что входит в услугу?</span>
+            </div>
+            <div class="feature">
+                <div class="feature-num">2</div>
+                <span>Стоимость и сроки</span>
+            </div>
+            <div class="feature">
+                <div class="feature-num">3</div>
+                <span>Как начать работу?</span>
+            </div>
+        </div>
+        
+        <a href="tg://resolve?domain=Bliss_Ebot" class="telegram-btn">
+            📱 ОТКРЫТЬ БОТА В TELEGRAM
+        </a>
+        
+        <p class="instruction">
+            После перехода:<br>
+            1. Нажмите START в боте<br>
+            2. Получите информацию<br>
+            3. Перейдите к менеджеру
+        </p>
+    </div>
+</body>
+</html>
