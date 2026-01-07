@@ -454,7 +454,7 @@
             </div>
             
             <div class="button-container">
-                <a href="tg://resolve?domain=Bliss_Ebot" class="telegram-btn">
+                <a href="tg://resolve?domain=Bliss_Ebot" class="telegram-btn" id="telegramButton">
                     <span class="telegram-icon">📱</span>
                     ПОЛУЧИТЬ ДОСТУП
                 </a>
@@ -472,11 +472,15 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const btn = document.querySelector('.telegram-btn');
+            const btn = document.getElementById('telegramButton');
+            let hasRedirected = false; // Флаг для предотвращения дублирования
             
-            // Умный редирект с аналитикой
+            // Умный редирект без дублирования вкладок
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
+                
+                if (hasRedirected) return; // Если уже редиректнули, выходим
+                hasRedirected = true; // Ставим флаг
                 
                 // Отправка события в Facebook Pixel
                 if (typeof fbq !== 'undefined') {
@@ -485,40 +489,95 @@
                 
                 // Анимация клика
                 this.style.transform = 'translateY(-2px) scale(0.98)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 150);
+                this.style.opacity = '0.9';
                 
                 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
                 const isTelegramWeb = navigator.userAgent.includes('Telegram');
                 
-                if (isTelegramWeb) {
-                    window.location.href = 'https://t.me/Bliss_Ebot';
-                    return;
+                // Определяем, есть ли приложение Telegram
+                function hasTelegramApp() {
+                    return new Promise((resolve) => {
+                        if (!isMobile) return resolve(false);
+                        
+                        const startTime = Date.now();
+                        const iframe = document.createElement('iframe');
+                        iframe.style.display = 'none';
+                        iframe.src = 'tg://resolve?domain=test';
+                        
+                        iframe.onload = function() {
+                            document.body.removeChild(iframe);
+                            resolve(Date.now() - startTime < 2000);
+                        };
+                        
+                        iframe.onerror = function() {
+                            document.body.removeChild(iframe);
+                            resolve(false);
+                        };
+                        
+                        document.body.appendChild(iframe);
+                        
+                        // Фолбэк таймаут
+                        setTimeout(() => {
+                            if (document.body.contains(iframe)) {
+                                document.body.removeChild(iframe);
+                            }
+                            resolve(false);
+                        }, 1000);
+                    });
                 }
                 
-                if (isMobile) {
-                    // Deeplink в приложение
-                    const appLink = 'tg://resolve?domain=Bliss_Ebot';
-                    const webLink = 'https://t.me/Bliss_Ebot';
+                // Основная логика редиректа
+                async function performRedirect() {
+                    if (isTelegramWeb) {
+                        window.location.href = 'https://t.me/Bliss_Ebot';
+                        return;
+                    }
                     
-                    window.location.href = appLink;
-                    
-                    setTimeout(function() {
-                        window.location.href = webLink;
-                    }, 1500);
-                    
-                    // Резерв для iOS/Android без Telegram
-                    setTimeout(function() {
-                        if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-                            window.location.href = 'https://apps.apple.com/app/telegram-messenger/id686449807';
-                        } else if (/Android/.test(navigator.userAgent)) {
-                            window.location.href = 'https://play.google.com/store/apps/details?id=org.telegram.messenger';
+                    if (isMobile) {
+                        const hasApp = await hasTelegramApp();
+                        
+                        if (hasApp) {
+                            // Если есть приложение, открываем в нем
+                            window.location.href = 'tg://resolve?domain=Bliss_Ebot';
+                        } else {
+                            // Если нет приложения, открываем web версию
+                            window.location.href = 'https://t.me/Bliss_Ebot';
                         }
-                    }, 3000);
-                } else {
-                    window.open('https://web.telegram.org/k/#@Bliss_Ebot', '_blank');
+                    } else {
+                        // Для десктопа открываем в новой вкладке
+                        window.open('https://web.telegram.org/k/#@Bliss_Ebot', '_blank');
+                        
+                        // Через 2 секунды закрываем лендинг (опционально)
+                        setTimeout(() => {
+                            // Можно добавить сообщение об успешном переходе
+                            document.querySelector('.container').innerHTML = `
+                                <div style="text-align: center; padding: 60px 20px;">
+                                    <div style="font-size: 80px; margin-bottom: 30px;">✅</div>
+                                    <h1 style="color: #25D366; margin-bottom: 20px;">Доступ открыт!</h1>
+                                    <p style="color: #666; font-size: 18px; margin-bottom: 30px;">
+                                        Телеграм должен открыться автоматически.<br>
+                                        Если этого не произошло, перейдите вручную.
+                                    </p>
+                                    <a href="https://t.me/Bliss_Ebot" style="
+                                        display: inline-block;
+                                        background: #25D366;
+                                        color: white;
+                                        padding: 15px 30px;
+                                        border-radius: 12px;
+                                        text-decoration: none;
+                                        font-weight: bold;
+                                        margin-top: 20px;
+                                    ">
+                                        Открыть вручную
+                                    </a>
+                                </div>
+                            `;
+                        }, 2000);
+                    }
                 }
+                
+                // Запускаем редирект
+                setTimeout(performRedirect, 300);
             });
             
             // Анимация появления
