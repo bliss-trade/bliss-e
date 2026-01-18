@@ -261,6 +261,193 @@
             margin: 0 auto;
             display: block;
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn-try:active {
+            transform: scale(0.98);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        
+        /* Модальное окно депозита */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-deposit {
+            background: rgba(30, 30, 50, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            width: 100%;
+            max-width: 400px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.2);
+            transform: translateY(20px);
+            transition: transform 0.3s;
+        }
+        
+        .modal-overlay.active .modal-deposit {
+            transform: translateY(0);
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #00f5ff;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .modal-subtitle {
+            color: #a0a0c0;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 14px;
+            line-height: 1.4;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .deposit-input-container {
+            margin-bottom: 25px;
+        }
+        
+        .deposit-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #ffffff;
+            font-weight: 600;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .deposit-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .currency-symbol {
+            position: absolute;
+            left: 15px;
+            font-weight: 700;
+            color: #00f5ff;
+            font-size: 16px;
+            z-index: 1;
+        }
+        
+        .deposit-input {
+            width: 100%;
+            padding: 16px 16px 16px 40px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 2px solid rgba(0, 245, 255, 0.3);
+            border-radius: 14px;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: left;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .deposit-input:focus {
+            border-color: #00f5ff;
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.2);
+        }
+        
+        .deposit-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .deposit-error {
+            color: #ff6b6b;
+            font-size: 12px;
+            margin-top: 8px;
+            text-align: center;
+            min-height: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .deposit-error.show {
+            opacity: 1;
+        }
+        
+        .min-deposit-info {
+            color: #a0a0c0;
+            font-size: 12px;
+            text-align: center;
+            margin-top: 10px;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .deposit-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .deposit-btn {
+            padding: 16px;
+            border: none;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .deposit-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-deposit-confirm {
+            background: linear-gradient(90deg, #00ff88, #00cc66);
+            color: white;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+        
+        .btn-deposit-confirm:active {
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+        }
+        
+        .btn-deposit-cancel {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ff6666;
+            border: 2px solid #ff6666;
+        }
+        
+        .btn-deposit-cancel:active {
+            background: rgba(255, 102, 102, 0.1);
         }
         
         .demo-active {
@@ -575,6 +762,11 @@
             justify-content: center;
             gap: 6px;
             min-height: 44px;
+            transition: transform 0.2s;
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
         }
         
         .btn-confirm {
@@ -814,6 +1006,11 @@
             width: 100%;
             text-align: center;
             min-height: 44px;
+            transition: transform 0.2s;
+        }
+        
+        .action-btn:active {
+            transform: scale(0.98);
         }
         
         .btn-bot {
@@ -880,6 +1077,10 @@
             .stat-number {
                 font-size: 19px;
             }
+            
+            .modal-deposit {
+                padding: 30px;
+            }
         }
         
         @media (min-width: 414px) {
@@ -906,6 +1107,10 @@
             .review-card {
                 padding: 22px 18px;
             }
+            
+            .modal-title {
+                font-size: 22px;
+            }
         }
         
         @media (min-width: 768px) {
@@ -925,6 +1130,10 @@
             
             .review-card {
                 padding: 25px 20px;
+            }
+            
+            .deposit-buttons {
+                flex-direction: row;
             }
         }
         
@@ -977,6 +1186,14 @@
                 flex-direction: column;
                 gap: 10px;
             }
+            
+            .modal-deposit {
+                padding: 20px;
+            }
+            
+            .modal-title {
+                font-size: 18px;
+            }
         }
         
         /* Портретная ориентация */
@@ -989,7 +1206,8 @@
         /* Отключение анимаций */
         @media (prefers-reduced-motion: reduce) {
             .transaction, .btn, .action-btn, .review-card,
-            .reviews-track, .nav-btn {
+            .reviews-track, .nav-btn, .modal-overlay,
+            .modal-deposit {
                 animation: none;
                 transition: none;
             }
@@ -1008,31 +1226,45 @@
             
             .process, .demo-placeholder, .demo-interface,
             .stat-card, .range-card, .card-section, .transaction,
-            .review-card {
-                background: rgba(255, 255, 255, 0.9);
+            .review-card, .modal-deposit {
+                background: rgba(255, 255, 255, 0.95);
                 border-color: rgba(0, 0, 0, 0.1);
                 color: #1a1a1a;
             }
             
-            .step, .btn-cancel, .btn-manager {
-                background: rgba(255, 255, 255, 0.9);
-                border-color: rgba(0, 0, 0, 0.1);
+            .step, .btn-cancel, .btn-manager, .modal-overlay {
+                background: rgba(255, 255, 255, 0.95);
+            }
+            
+            .modal-overlay {
+                background: rgba(0, 0, 0, 0.7);
+            }
+            
+            .deposit-input {
+                background: rgba(0, 0, 0, 0.05);
+                border-color: rgba(0, 0, 0, 0.2);
+                color: #1a1a1a;
             }
             
             .stat-label, .step-desc, .placeholder-subtitle,
             .range-title, .balance-label, .info-label,
-            .review-date, .review-text, .review-stat-label {
+            .review-date, .review-text, .review-stat-label,
+            .modal-subtitle, .min-deposit-info {
                 color: #666;
             }
             
             .bank-name, .step-title, .info-value,
-            .review-name {
+            .review-name, .modal-title, .deposit-label {
                 color: #1a1a1a;
             }
             
             .nav-btn {
                 background: rgba(0, 0, 0, 0.1);
                 border-color: rgba(0, 0, 0, 0.2);
+                color: #0066cc;
+            }
+            
+            .currency-symbol {
                 color: #0066cc;
             }
         }
@@ -1109,8 +1341,66 @@
                 <button class="btn-try" id="tryDemoBtn">▶ ЗАПУСТИТЬ ДЕМО</button>
             </div>
             
+            <!-- Модальное окно депозита -->
+            <div class="modal-overlay" id="depositModal">
+                <div class="modal-deposit">
+                    <div class="modal-title">💰 ВНЕСЕНИЕ ДЕПОЗИТА</div>
+                    <div class="modal-subtitle">
+                        Для начала работы в демо-режиме внесите виртуальный депозит в USDT.<br>
+                        Минимальная сумма: 150 USDT
+                    </div>
+                    
+                    <div class="deposit-input-container">
+                        <label class="deposit-label">Сумма депозита (USDT)</label>
+                        <div class="deposit-input-wrapper">
+                            <span class="currency-symbol">$</span>
+                            <input 
+                                type="number" 
+                                class="deposit-input" 
+                                id="depositAmount"
+                                placeholder="150"
+                                min="150"
+                                step="50"
+                                value="150"
+                                autofocus
+                            >
+                        </div>
+                        <div class="deposit-error" id="depositError"></div>
+                        <div class="min-deposit-info">
+                            Минимальный депозит: 150 USDT. Рекомендуем 500-1000 USDT для комфортной работы.
+                        </div>
+                    </div>
+                    
+                    <div class="deposit-buttons">
+                        <button class="deposit-btn btn-deposit-confirm" id="confirmDepositBtn">
+                            <span>✅</span> ПОДТВЕРДИТЬ ДЕПОЗИТ
+                        </button>
+                        <button class="deposit-btn btn-deposit-cancel" id="cancelDepositBtn">
+                            <span>❌</span> ОТМЕНА
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
             <div class="demo-active" id="demoActive">
                 <div class="demo-interface">
+                    <!-- Информация о депозите -->
+                    <div class="deposit-info" style="
+                        background: linear-gradient(90deg, rgba(0, 245, 255, 0.1), rgba(0, 102, 255, 0.1));
+                        border-radius: 14px;
+                        padding: 12px 16px;
+                        margin-bottom: 15px;
+                        text-align: center;
+                        border: 1px solid rgba(0, 245, 255, 0.3);
+                    ">
+                        <div style="font-size: 12px; color: #a0a0c0; margin-bottom: 4px;">
+                            Депозит в демо-режиме
+                        </div>
+                        <div style="font-size: 18px; font-weight: 800; color: #00f5ff;" id="depositInfo">
+                            500 USDT
+                        </div>
+                    </div>
+                    
                     <!-- Статистика -->
                     <div class="stats-grid">
                         <div class="stat-card">
@@ -1188,6 +1478,16 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Кнопка выхода из демо -->
+                    <button class="btn" id="exitDemoBtn" style="
+                        background: rgba(255, 255, 255, 0.05);
+                        color: #a0a0c0;
+                        border: 1px solid rgba(255, 255, 255, 0.1);
+                        margin-top: 15px;
+                    ">
+                        <span>🚪</span> ВЫЙТИ ИЗ ДЕМО-РЕЖИМА
+                    </button>
                 </div>
             </div>
         </div>
@@ -1490,14 +1790,15 @@
         // Конфигурация
         const CONFIG = {
             EXCHANGE_RATE: 510,
-            START_BALANCE: 500.00,
+            MIN_DEPOSIT: 150,
             WORK_RANGE: { min: 3000, max: 9999, percent: 10 },
             CARD_START_BALANCE: 0
         };
         
         // Состояние
         let state = {
-            balance: CONFIG.START_BALANCE,
+            balance: 0,
+            initialDeposit: 0,
             profit: 0.00,
             completedTransactions: 0,
             cardBalance: CONFIG.CARD_START_BALANCE,
@@ -1510,6 +1811,13 @@
             demoPlaceholder: document.getElementById('demoPlaceholder'),
             demoActive: document.getElementById('demoActive'),
             tryDemoBtn: document.getElementById('tryDemoBtn'),
+            depositModal: document.getElementById('depositModal'),
+            depositAmount: document.getElementById('depositAmount'),
+            depositError: document.getElementById('depositError'),
+            confirmDepositBtn: document.getElementById('confirmDepositBtn'),
+            cancelDepositBtn: document.getElementById('cancelDepositBtn'),
+            exitDemoBtn: document.getElementById('exitDemoBtn'),
+            depositInfo: document.getElementById('depositInfo'),
             balance: document.getElementById('balance'),
             profit: document.getElementById('profit'),
             transactions: document.getElementById('transactions'),
@@ -1532,21 +1840,29 @@
             // Кнопка запуска демо
             elements.tryDemoBtn.addEventListener('click', function() {
                 elements.demoPlaceholder.classList.add('hidden');
-                elements.demoActive.classList.add('active');
-                state.demoActive = true;
-                
-                // Первая транзакция через 1 секунду
-                setTimeout(() => generateTransaction(), 1000);
-                
-                // Автогенерация
-                setInterval(() => {
-                    if (!state.currentTransaction && state.demoActive) {
-                        generateTransaction();
-                    }
-                }, 8000);
+                showDepositModal();
             });
             
-            // Обработчики кнопок
+            // Подтверждение депозита
+            elements.confirmDepositBtn.addEventListener('click', confirmDeposit);
+            
+            // Отмена депозита
+            elements.cancelDepositBtn.addEventListener('click', cancelDeposit);
+            
+            // Ввод в поле депозита
+            elements.depositAmount.addEventListener('input', validateDeposit);
+            
+            // Enter для подтверждения депозита
+            elements.depositAmount.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    confirmDeposit();
+                }
+            });
+            
+            // Кнопка выхода из демо
+            elements.exitDemoBtn.addEventListener('click', exitDemo);
+            
+            // Обработчики кнопок транзакций
             elements.confirmBtn.addEventListener('click', confirmTransaction);
             elements.cancelBtn.addEventListener('click', cancelTransaction);
             
@@ -1555,7 +1871,7 @@
             
             // Предотвращение масштабирования на кнопках
             document.addEventListener('touchmove', function(e) {
-                if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A') {
+                if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A' || e.target.tagName === 'INPUT') {
                     e.preventDefault();
                 }
             }, {passive: false});
@@ -1581,6 +1897,95 @@
                     e.preventDefault();
                 });
             });
+        }
+        
+        // Показать модальное окно депозита
+        function showDepositModal() {
+            elements.depositModal.classList.add('active');
+            elements.depositAmount.focus();
+            elements.depositAmount.select();
+        }
+        
+        // Скрыть модальное окно депозита
+        function hideDepositModal() {
+            elements.depositModal.classList.remove('active');
+        }
+        
+        // Валидация депозита
+        function validateDeposit() {
+            const amount = parseFloat(elements.depositAmount.value);
+            elements.depositError.classList.remove('show');
+            
+            if (isNaN(amount) || amount < CONFIG.MIN_DEPOSIT) {
+                elements.depositError.textContent = `Минимальная сумма депозита: ${CONFIG.MIN_DEPOSIT} USDT`;
+                elements.depositError.classList.add('show');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        // Подтверждение депозита
+        function confirmDeposit() {
+            if (!validateDeposit()) return;
+            
+            const depositAmount = parseFloat(elements.depositAmount.value);
+            
+            // Установка начального баланса
+            state.initialDeposit = depositAmount;
+            state.balance = depositAmount;
+            state.profit = 0;
+            state.completedTransactions = 0;
+            state.cardBalance = CONFIG.CARD_START_BALANCE;
+            state.demoActive = true;
+            
+            // Обновление информации о депозите
+            elements.depositInfo.textContent = `${depositAmount.toFixed(0)} USDT`;
+            
+            // Скрытие модального окна и показ демо
+            hideDepositModal();
+            elements.demoActive.classList.add('active');
+            updateUI();
+            
+            // Первая транзакция через 1 секунду
+            setTimeout(() => generateTransaction(), 1000);
+            
+            // Автогенерация транзакций
+            clearInterval(window.demoInterval);
+            window.demoInterval = setInterval(() => {
+                if (!state.currentTransaction && state.demoActive) {
+                    generateTransaction();
+                }
+            }, 8000);
+        }
+        
+        // Отмена депозита
+        function cancelDeposit() {
+            hideDepositModal();
+            elements.demoPlaceholder.classList.remove('hidden');
+        }
+        
+        // Выход из демо
+        function exitDemo() {
+            state.demoActive = false;
+            clearInterval(window.demoInterval);
+            
+            elements.demoActive.classList.remove('active');
+            elements.demoPlaceholder.classList.remove('hidden');
+            elements.transaction.classList.add('hidden');
+            state.currentTransaction = null;
+            
+            // Сброс состояния
+            state.balance = 0;
+            state.initialDeposit = 0;
+            state.profit = 0;
+            state.completedTransactions = 0;
+            state.cardBalance = CONFIG.CARD_START_BALANCE;
+            
+            updateUI();
+            
+            // Показать сообщение о выходе
+            alert('Демо-режим завершен. Начните заново, чтобы увидеть как работает процессинг.');
         }
         
         // Обновление интерфейса
