@@ -4,6 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bliss P2P • Заработок на процессинге</title>
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1199824888949325');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none" 
+             src="https://www.facebook.com/tr?id=1199824888949325&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+    
     <style>
         /* Базовые стили */
         * {
@@ -984,7 +1004,7 @@
             transform: scale(0.95);
         }
         
-        /* Кнопки перехода */
+        /* Кнопки перехода - ОБНОВЛЕННЫЕ СТИЛИ */
         .action-buttons {
             display: flex;
             flex-direction: column;
@@ -1006,7 +1026,7 @@
             width: 100%;
             text-align: center;
             min-height: 44px;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
         
         .action-btn:active {
@@ -1014,14 +1034,23 @@
         }
         
         .btn-bot {
-            background: linear-gradient(90deg, #00f5ff, #0066ff);
+            background: linear-gradient(90deg, #00ff88, #00cc66);
             color: white;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2);
+        }
+        
+        .btn-bot:active {
+            box-shadow: 0 2px 8px rgba(0, 255, 136, 0.4);
         }
         
         .btn-manager {
-            background: rgba(255, 255, 255, 0.05);
-            color: #ffffff;
-            border: 2px solid #00f5ff;
+            background: linear-gradient(90deg, #00f5ff, #0066ff);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
+        }
+        
+        .btn-manager:active {
+            box-shadow: 0 2px 8px rgba(0, 212, 255, 0.4);
         }
         
         .btn-icon {
@@ -1232,7 +1261,7 @@
                 color: #1a1a1a;
             }
             
-            .step, .btn-cancel, .btn-manager, .modal-overlay {
+            .step, .btn-cancel, .modal-overlay {
                 background: rgba(255, 255, 255, 0.95);
             }
             
@@ -1266,6 +1295,14 @@
             
             .currency-symbol {
                 color: #0066cc;
+            }
+            
+            .btn-bot {
+                background: linear-gradient(90deg, #00cc66, #009944);
+            }
+            
+            .btn-manager {
+                background: linear-gradient(90deg, #0066cc, #004499);
             }
         }
         
@@ -1765,15 +1802,15 @@
             </div>
         </div>
         
-        <!-- Кнопки перехода -->
+        <!-- Кнопки перехода - ОБНОВЛЕННЫЕ КНОПКИ -->
         <div class="action-buttons">
-            <a href="https://t.me/BlissP2Pbot" class="action-btn btn-bot" target="_blank">
-                <span class="btn-icon">🤖</span>
-                @BlissP2Pbot
+            <a href="https://t.me/BlissP2Pbot" class="action-btn btn-bot" target="_blank" onclick="fbq('track', 'InitiateCheckout');">
+                <span class="btn-icon">🚀</span>
+                НАЧАТЬ ПРЯМО СЕЙЧАС
             </a>
-            <a href="https://t.me/bliss_manager_p2p" class="action-btn btn-manager" target="_blank">
-                <span class="btn-icon">👨‍💼</span>
-                @bliss_manager_p2p
+            <a href="https://t.me/bliss_manager_p2p" class="action-btn btn-manager" target="_blank" onclick="fbq('track', 'Contact');">
+                <span class="btn-icon">🎓</span>
+                БЕСПЛАТНОЕ ОБУЧЕНИЕ
             </a>
         </div>
         
@@ -1880,12 +1917,19 @@
             // Инициализация карусели отзывов
             initReviewsCarousel();
             
-            // Обработка ссылок Telegram
+            // Обработка ссылок Telegram с трекингом Facebook
             document.querySelectorAll('a[href^="https://t.me/"]').forEach(link => {
                 link.addEventListener('click', function(e) {
                     const url = this.getAttribute('href');
                     const username = url.split('/').pop();
                     const appUrl = `tg://resolve?domain=${username}`;
+                    
+                    // Отслеживание в Facebook
+                    if (this.classList.contains('btn-bot')) {
+                        fbq('track', 'Lead');
+                    } else if (this.classList.contains('btn-manager')) {
+                        fbq('track', 'CompleteRegistration');
+                    }
                     
                     window.location.href = appUrl;
                     
@@ -1896,6 +1940,14 @@
                     }, 250);
                     
                     e.preventDefault();
+                });
+            });
+            
+            // Трекинг демо-взаимодействий
+            elements.tryDemoBtn.addEventListener('click', function() {
+                fbq('track', 'ViewContent', {
+                    content_name: 'Demo Mode',
+                    content_type: 'product'
                 });
             });
         }
@@ -1958,6 +2010,13 @@
                     generateTransaction();
                 }
             }, 8000);
+            
+            // Отслеживание в Facebook
+            fbq('track', 'AddToCart', {
+                value: depositAmount,
+                currency: 'USD',
+                content_name: 'Demo Deposit'
+            });
         }
         
         // Отмена депозита
@@ -2279,5 +2338,3 @@
     </script>
 </body>
 </html>
-
-
